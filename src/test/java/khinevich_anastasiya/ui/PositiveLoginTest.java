@@ -7,19 +7,18 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class PositiveLoginTest extends BaseTest{
-    UsersPage loginPage = new UsersPage();
+    UsersPage userPage = new UsersPage();
 
     @DataProvider(name = "testInputCorrectDataForLogIn")
-    public Object[][] dataProvFunc(){
+    public Object[][] dataProvInputCorrectDataForLogIn(){
         return new Object[][]{
-                {"1234566@gmail.ru","2222"},
-                {"1234566@gmail.ru","11111"}
+                {"1234566@gmail.ru","123456"}
         };
     }
     @Test(dataProvider="testInputCorrectDataForLogIn")
     void testInputCorrectDataForLogIn(String email, String password){
         Steps steps = new Steps();
         steps.inputDataForLogIn(email,password);
-        Assert.assertFalse(loginPage.isTextElementInstructionExist(),"You entered the incorrect data");
+        Assert.assertFalse(userPage.isTextElementInstructionExist(),"You entered the incorrect data");
     }
 }

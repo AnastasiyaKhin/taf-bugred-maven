@@ -1,5 +1,7 @@
 package khinevich_anastasiya.api;
 
+import khinevich_anastasiya.ui.util.RandomData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -9,18 +11,19 @@ public class APIUserTest {
     @Test
     void testCreateNewUser() {
         String endPoint = "http://users.bugred.ru/tasks/rest/doregister";
-        String name = "Andrei";
-        String email = "Andrei@mail.com";
-        String password = "123455";
+        String name = RandomData.generateRandomName();
+        String email = RandomData.generateRandomEmail();
+        String password = RandomData.generateRandomPassword();
         String requestBody = String.format("{\"name\":\"%s\",\"email\":\"%s\",\"password\":\"%s\"}", name, email, password);
+
         given()
                 .header("Content-type", "application/json")
                 .and()
                 .body(requestBody)
-                .when()
+        .when()
                 .log().all()
                 .post(endPoint)
-                .then()
+        .then()
                 .log().all()
                 .statusCode(200);
     }
@@ -28,17 +31,17 @@ public class APIUserTest {
     @Test
     void testGetUserInfo() {
         String endPoint = "http://users.bugred.ru/tasks/rest/getuser";
-        String email = "1234566@gmail.ru";
-
+        String email = RandomData.generateRandomEmail();
         String requestBody = String.format("{\"email\":\"%s\"}", email);
+
         given()
                 .header("Content-type", "application/json")
                 .and()
                 .body(requestBody)
-                .when()
+        .when()
                 .log().all()
                 .get(endPoint)
-                .then()
+        .then()
                 .log().all()
                 .statusCode(200)
                 .body("email", is(email));
@@ -47,31 +50,31 @@ public class APIUserTest {
 
     @Test
     void testPatchUser() {
-
         String endPoint = "http://users.bugred.ru/tasks/rest/fullupdateuser";
-        String email = "1234566@gmail.ru";
+        String email = RandomData.generateRandomEmail();
         String hobby = "learning";
-        String inn = "012345678901";
-        String birthday = "01.05.2000";
-        String date_start = "28.11.2022";
+        String inn = RandomData.generateRandomIIN();
+        String birthday = RandomData.generateRandomDate();
+        String date_start = RandomData.generateRandomDate();
 
         String requestBody = String.format("{\"email\":\"%s\",\"hobby\":\"%s\",\"inn\":\"%s\",\"birthday\":\"%s\",\"date_start\":\"%s\"}", email, hobby, inn, birthday, date_start);
         given().header("Content-type", "application/json")
                 .and()
                 .body(requestBody)
-                .when()
+        .when()
                 .log().all()
-                .post(endPoint)
-                .then()
+                .patch(endPoint)
+        .then()
                 .log().all()
                 .statusCode(200)
-                .extract().response();
+                .extract()
+                .response();
     }
 
     @Test
     void testDeleteUser() {
         String endPoint = "http://users.bugred.ru/tasks/rest/deleteuser";
-        String email = "3333@gmail.ru";
+        String email = RandomData.generateRandomEmail();
         String requestBody = String.format("{\"email\":\"%s\"}", email);
         given().header("Content-type", "application/json")
                 .and()
@@ -82,6 +85,7 @@ public class APIUserTest {
                 .then()
                 .log().all()
                 .extract().response();
+        Assert.fail("Test is not completed");
     }
 }
 

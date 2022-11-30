@@ -3,6 +3,16 @@ package khinevich_anastasiya.ui.page;
 import org.openqa.selenium.By;
 
 public class UsersPage extends BasePage {
+    public final String LABEL_LOGIN = "Вход";
+    public final String LABEL_INSTRUCTION = "С помощью формы ниже,вы сможете авторизоваться на нашем ресурсе";
+    public final String LABEL_INPUT_EMAIL = "Email";
+    public final String LABEL_INPUT_PASSWORD = "Пароль";
+    public final String BUTTON_LOGIN = "Авторизоваться";
+    public final String LABEL_REGISTRATION = "Регистрация";
+    public final String LABEL_REGISTRATION_NAME = "Имя";
+    public final String LABEL_REGISTRATION_EMAIL = "Email";
+    public final String LABEL_REGISTRATION_PASSWORD = "Пароль";
+    public final String BUTTON_REGISTRATION = "Зарегистрироваться";
     private final By inputPage = By.xpath("//a[@href ='/user/login/index.html']");
     private final String inputBox = "//h2[contains(text(),'%s')]/ancestor::div[@class = 'col-md-6']//input[@name='%s']";
     private String elementInput = "//h2[contains(text(),'%s')]";
